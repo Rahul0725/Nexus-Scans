@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Menu, X, Flame, BookOpen, User, Sparkles, UploadCloud, Shield, LogOut, LogIn, Shuffle } from 'lucide-react';
+import { Search, Menu, X, BookOpen, User, UploadCloud, Shield, LogOut, Shuffle } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 
 interface NavbarProps {
@@ -30,30 +30,28 @@ export const Navbar: React.FC<NavbarProps> = ({ onAiSearch, isAiLoading, isAdmin
   };
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-[#111111] border-b border-[#222]">
-      <div className="max-w-7xl mx-auto px-4">
+    <nav className="sticky top-0 z-50 w-full bg-[#111111] border-b border-[#262626]">
+      <div className="max-w-[1400px] mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           
           {/* Logo & Links Area */}
           <div className="flex items-center gap-8">
             {/* Logo */}
             <div className="flex-shrink-0 flex items-center gap-2 cursor-pointer" onClick={() => navigate('/')}>
-              <div className="w-8 h-8 bg-primary rounded flex items-center justify-center text-white font-bold text-lg">
+              <div className="w-9 h-9 bg-primary rounded-lg flex items-center justify-center text-white font-extrabold text-xl shadow-[0_0_15px_rgba(118,69,217,0.4)]">
                 N
               </div>
-              <span className="font-bold text-lg tracking-tight text-white hidden sm:block">
+              <span className="font-extrabold text-xl tracking-tight text-white hidden sm:block">
                 NEXUS<span className="text-primary">SCANS</span>
               </span>
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-6 text-sm font-semibold text-gray-300">
+            <div className="hidden lg:flex items-center gap-6 text-[13px] font-bold text-[#b0b0b0] uppercase tracking-wide">
               <Link to="/" className="hover:text-white transition-colors">Home</Link>
+              <Link to="/" className="hover:text-white transition-colors">Bookmarks</Link>
               <Link to="/" className="hover:text-white transition-colors flex items-center gap-1">
-                <BookOpen size={16} className="text-primary" /> Bookmarks
-              </Link>
-              <Link to="/" className="hover:text-white transition-colors flex items-center gap-1">
-                <Shuffle size={16} className="text-primary" /> Surprise Me
+                 Surprise Me
               </Link>
             </div>
           </div>
@@ -61,20 +59,20 @@ export const Navbar: React.FC<NavbarProps> = ({ onAiSearch, isAiLoading, isAdmin
           {/* Search & Actions */}
           <div className="flex items-center gap-4">
             {/* Desktop Search */}
-            <div className="hidden md:block relative w-64">
+            <div className="hidden md:block relative w-72">
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search..."
-                className="w-full bg-[#1c1c1c] border border-[#333] text-gray-200 text-sm rounded-md pl-3 pr-10 py-2 focus:outline-none focus:border-primary transition-colors"
+                placeholder="Search series..."
+                className="w-full bg-[#1c1c1c] border border-[#333] text-gray-200 text-sm rounded-lg pl-4 pr-10 py-2.5 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-gray-600"
                 onKeyDown={(e) => e.key === 'Enter' && handleSearch(e)}
               />
               <button 
                 onClick={triggerAiSearch}
-                className="absolute right-1.5 top-1.5 text-gray-400 hover:text-primary transition-colors"
+                className="absolute right-2 top-2 text-gray-500 hover:text-primary transition-colors p-1"
               >
-                {isAiLoading ? <span className="animate-spin text-primary">⟳</span> : <Search size={16} />}
+                {isAiLoading ? <span className="animate-spin text-primary block">⟳</span> : <Search size={18} />}
               </button>
             </div>
 
@@ -82,13 +80,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onAiSearch, isAiLoading, isAdmin
             <div className="hidden md:flex items-center gap-3">
               {isAdmin ? (
                 <>
-                  <Link to="/upload" className="text-gray-300 hover:text-white"><UploadCloud size={20} /></Link>
-                  <Link to="/admin" className="text-gray-300 hover:text-white"><Shield size={20} /></Link>
-                  <button onClick={onLogout} className="text-gray-300 hover:text-white"><LogOut size={20} /></button>
+                  <Link to="/upload" className="text-gray-400 hover:text-white transition-colors"><UploadCloud size={20} /></Link>
+                  <Link to="/admin" className="text-gray-400 hover:text-white transition-colors"><Shield size={20} /></Link>
+                  <button onClick={onLogout} className="text-gray-400 hover:text-white transition-colors"><LogOut size={20} /></button>
                 </>
               ) : (
-                <Link to="/login" className="bg-[#222] hover:bg-[#333] text-white px-3 py-1.5 rounded text-xs font-bold transition-colors flex items-center gap-1">
-                  <User size={14} /> Login
+                <Link to="/login" className="bg-[#262626] hover:bg-[#333] text-white px-4 py-2 rounded-lg text-xs font-bold transition-colors flex items-center gap-2">
+                  <User size={14} /> <span className="uppercase">Sign In</span>
                 </Link>
               )}
             </div>
