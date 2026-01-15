@@ -8,9 +8,10 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react()],
     define: {
-      // Safely expose API_KEY. 
-      // JSON.stringify handles if it's undefined (becomes "undefined" string or simply undefined value in JS)
+      // Expose API_KEY specifically
       'process.env.API_KEY': JSON.stringify(env.API_KEY),
+      // Polyfill the process.env object to avoid "process is not defined" in some libs
+      'process.env': {}
     }
   };
 });
