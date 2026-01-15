@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nexus Scans - Premium Manhwa Reader</title>
+    <title>Nexus Scans - Asura Style</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -12,14 +12,15 @@
         theme: {
           extend: {
             colors: {
-              background: '#0f0f0f',
-              surface: '#18181b', // zinc-900
-              surfaceHighlight: '#27272a', // zinc-800
-              primary: '#7c3aed', // violet-600
-              primaryHover: '#6d28d9', // violet-700
-              secondary: '#e11d48', // rose-600
-              textMain: '#f4f4f5', // zinc-100
-              textMuted: '#a1a1aa', // zinc-400
+              background: '#0e0e0e',
+              surface: '#1c1c1c', 
+              surfaceHighlight: '#262626',
+              primary: '#7645d9', // Asura Purple
+              primaryHover: '#5e37ad', 
+              secondary: '#ff3b30', // Red accent
+              textMain: '#ffffff',
+              textMuted: '#9ca3af', // gray-400
+              cardBg: '#161616',
             },
             fontFamily: {
               sans: ['Inter', 'sans-serif'],
@@ -32,30 +33,30 @@
     <style>
       body {
         font-family: 'Inter', sans-serif;
-        background-color: #0f0f0f;
-        color: #f4f4f5;
+        background-color: #0e0e0e;
+        color: #ffffff;
       }
       /* Custom scrollbar */
       ::-webkit-scrollbar {
-        width: 8px;
+        width: 6px;
       }
       ::-webkit-scrollbar-track {
-        background: #18181b; 
+        background: #0e0e0e; 
       }
       ::-webkit-scrollbar-thumb {
-        background: #3f3f46; 
-        border-radius: 4px;
+        background: #333; 
+        border-radius: 3px;
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: #52525b; 
+        background: #7645d9; 
       }
     </style>
   <script type="importmap">
 {
   "imports": {
-    "react/": "https://esm.sh/react@^19.2.3/",
     "react": "https://esm.sh/react@^19.2.3",
     "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
     "@google/genai": "https://esm.sh/@google/genai@^1.36.0",
     "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
     "react-router-dom": "https://esm.sh/react-router-dom@^7.12.0",

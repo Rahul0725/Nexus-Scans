@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Menu, X, Flame, BookOpen, User, Sparkles, UploadCloud, Shield, LogOut, LogIn } from 'lucide-react';
+import { Search, Menu, X, Flame, BookOpen, User, Sparkles, UploadCloud, Shield, LogOut, LogIn, Shuffle } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 
 interface NavbarProps {
@@ -30,125 +30,113 @@ export const Navbar: React.FC<NavbarProps> = ({ onAiSearch, isAiLoading, isAdmin
   };
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-surface/95 backdrop-blur-md border-b border-surfaceHighlight">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="sticky top-0 z-50 w-full bg-[#111111] border-b border-[#222]">
+      <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           
-          {/* Logo */}
-          <div className="flex-shrink-0 flex items-center gap-2 cursor-pointer" onClick={() => navigate('/')}>
-            <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-primary/20">
-              N
+          {/* Logo & Links Area */}
+          <div className="flex items-center gap-8">
+            {/* Logo */}
+            <div className="flex-shrink-0 flex items-center gap-2 cursor-pointer" onClick={() => navigate('/')}>
+              <div className="w-8 h-8 bg-primary rounded flex items-center justify-center text-white font-bold text-lg">
+                N
+              </div>
+              <span className="font-bold text-lg tracking-tight text-white hidden sm:block">
+                NEXUS<span className="text-primary">SCANS</span>
+              </span>
             </div>
-            <span className="font-bold text-xl tracking-tight text-textMain hidden sm:block">
-              Nexus<span className="text-primary">Scans</span>
-            </span>
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-6 text-sm font-semibold text-gray-300">
+              <Link to="/" className="hover:text-white transition-colors">Home</Link>
+              <Link to="/" className="hover:text-white transition-colors flex items-center gap-1">
+                <BookOpen size={16} className="text-primary" /> Bookmarks
+              </Link>
+              <Link to="/" className="hover:text-white transition-colors flex items-center gap-1">
+                <Shuffle size={16} className="text-primary" /> Surprise Me
+              </Link>
+            </div>
           </div>
 
-          {/* Desktop Search */}
-          <div className="hidden md:flex flex-1 max-w-lg mx-8 relative">
-            <div className="relative w-full group">
+          {/* Search & Actions */}
+          <div className="flex items-center gap-4">
+            {/* Desktop Search */}
+            <div className="hidden md:block relative w-64">
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search comics..."
-                className="w-full bg-background border border-surfaceHighlight text-textMain text-sm rounded-full pl-10 pr-24 py-2 focus:outline-none focus:border-primary transition-colors"
+                placeholder="Search..."
+                className="w-full bg-[#1c1c1c] border border-[#333] text-gray-200 text-sm rounded-md pl-3 pr-10 py-2 focus:outline-none focus:border-primary transition-colors"
                 onKeyDown={(e) => e.key === 'Enter' && handleSearch(e)}
               />
-              <Search className="absolute left-3 top-2.5 text-textMuted w-4 h-4" />
-              
               <button 
                 onClick={triggerAiSearch}
-                disabled={isAiLoading}
-                className={`absolute right-1 top-1 bottom-1 px-3 rounded-full flex items-center gap-1 text-xs font-bold transition-all ${isAiLoading ? 'bg-surfaceHighlight text-textMuted' : 'bg-primary text-white hover:bg-primaryHover'}`}
+                className="absolute right-1.5 top-1.5 text-gray-400 hover:text-primary transition-colors"
               >
-                {isAiLoading ? (
-                  <span className="animate-pulse">Thinking...</span>
-                ) : (
-                  <>
-                    <Sparkles size={12} />
-                    <span>AI Find</span>
-                  </>
-                )}
+                {isAiLoading ? <span className="animate-spin text-primary">⟳</span> : <Search size={16} />}
               </button>
             </div>
-          </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-6 text-sm font-medium text-textMuted">
-            <Link to="/" className="hover:text-primary transition-colors flex items-center gap-1">
-              <BookOpen size={16} /> Library
-            </Link>
-            <Link to="/" className="hover:text-primary transition-colors flex items-center gap-1">
-              <Flame size={16} /> Popular
-            </Link>
-            
-            {isAdmin ? (
-              <>
-                <Link to="/upload" className="hover:text-primary transition-colors flex items-center gap-1">
-                  <UploadCloud size={16} /> Upload
+            {/* Auth Buttons */}
+            <div className="hidden md:flex items-center gap-3">
+              {isAdmin ? (
+                <>
+                  <Link to="/upload" className="text-gray-300 hover:text-white"><UploadCloud size={20} /></Link>
+                  <Link to="/admin" className="text-gray-300 hover:text-white"><Shield size={20} /></Link>
+                  <button onClick={onLogout} className="text-gray-300 hover:text-white"><LogOut size={20} /></button>
+                </>
+              ) : (
+                <Link to="/login" className="bg-[#222] hover:bg-[#333] text-white px-3 py-1.5 rounded text-xs font-bold transition-colors flex items-center gap-1">
+                  <User size={14} /> Login
                 </Link>
-                <Link to="/admin" className="hover:text-primary transition-colors flex items-center gap-1 text-secondary">
-                  <Shield size={16} /> Admin
-                </Link>
-                <button 
-                  onClick={onLogout}
-                  className="bg-surfaceHighlight hover:bg-surface text-textMain p-2 rounded-full transition-colors flex items-center gap-2 px-3 text-xs"
-                >
-                  <LogOut size={14} /> Logout
-                </button>
-              </>
-            ) : (
-              <Link to="/login" className="bg-surfaceHighlight hover:bg-surface text-textMain px-4 py-2 rounded-full transition-colors flex items-center gap-2 text-xs font-bold">
-                <LogIn size={14} /> Staff Login
-              </Link>
-            )}
-          </div>
+              )}
+            </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-textMuted hover:text-white p-2"
-            >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+            {/* Mobile menu button */}
+            <div className="md:hidden flex items-center">
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="text-gray-300 hover:text-white p-2"
+              >
+                {isOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-surface border-b border-surfaceHighlight">
-          <div className="px-4 pt-2 pb-4 space-y-3">
-             <div className="relative w-full mb-4">
+        <div className="md:hidden bg-[#161616] border-b border-[#333]">
+          <div className="px-4 py-4 space-y-4">
+             <div className="relative w-full">
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search comics..."
-                className="w-full bg-background border border-surfaceHighlight text-textMain text-sm rounded-lg pl-10 pr-24 py-2 focus:outline-none focus:border-primary"
+                className="w-full bg-[#111] border border-[#333] text-gray-200 text-sm rounded pl-3 pr-10 py-2.5"
               />
-              <Search className="absolute left-3 top-2.5 text-textMuted w-4 h-4" />
-              <button 
-                onClick={triggerAiSearch}
-                className="absolute right-1 top-1 bottom-1 bg-primary text-white px-3 rounded-md text-xs font-bold flex items-center gap-1"
-              >
-                 <Sparkles size={12} /> AI
+              <button onClick={triggerAiSearch} className="absolute right-3 top-2.5 text-gray-400">
+                <Search size={16} />
               </button>
             </div>
             
-            <Link to="/" className="block text-textMuted hover:text-white font-medium py-2">Home</Link>
-            
-            {isAdmin ? (
-              <>
-                <Link to="/upload" className="block text-textMuted hover:text-white font-medium py-2 flex items-center gap-2"><UploadCloud size={16}/> Upload Series</Link>
-                <Link to="/admin" className="block text-textMuted hover:text-white font-medium py-2 flex items-center gap-2 text-secondary"><Shield size={16}/> Admin Panel</Link>
-                <button onClick={onLogout} className="w-full text-left text-textMuted hover:text-white font-medium py-2 flex items-center gap-2"><LogOut size={16}/> Logout</button>
-              </>
-            ) : (
-              <Link to="/login" className="block text-textMuted hover:text-white font-medium py-2 flex items-center gap-2"><LogIn size={16}/> Staff Login</Link>
-            )}
+            <div className="flex flex-col gap-2 font-medium text-gray-300">
+              <Link to="/" className="hover:text-white py-2 border-b border-[#222]">Home</Link>
+              <Link to="/" className="hover:text-white py-2 border-b border-[#222]">Bookmarks</Link>
+              <Link to="/" className="hover:text-white py-2 border-b border-[#222]">Surprise Me</Link>
+              {isAdmin ? (
+                <>
+                  <Link to="/upload" className="hover:text-white py-2">Upload</Link>
+                  <Link to="/admin" className="hover:text-white py-2">Admin</Link>
+                  <button onClick={onLogout} className="text-left hover:text-white py-2">Logout</button>
+                </>
+              ) : (
+                <Link to="/login" className="hover:text-white py-2">Login</Link>
+              )}
+            </div>
           </div>
         </div>
       )}
